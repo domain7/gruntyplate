@@ -1,6 +1,9 @@
 /*global module:false*/
 module.exports = function(grunt) {
 
+  // Load grunt tasks automatically
+  require('load-grunt-tasks')(grunt);
+
   // Project configuration.
   grunt.initConfig({
     // Metadata.
@@ -19,7 +22,8 @@ module.exports = function(grunt) {
       dist: {
         src: [
           'js/src/vendor/modernizr.js',
-          'js/src/global.js'
+          'js/src/app.js',
+          'js/src/modules/{,*/}*.js'
           ],
         dest: 'js/dist/<%= pkg.name %>.js'
       }
@@ -39,33 +43,42 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      files: ['js/src/*.js'],
+      files: ['js/src/{,*/}*.js'],
       tasks: ['default']
     },
     jshint: {
       options: {
+        '-W030': true,
+        node: true,
+        esnext: true,
+        bitwise: true,
+        camelcase: true,
+        immed: true,
+        indent: 2,
+        latedef: true,
+        newcap: true,
+        noarg: true,
+        quotmark: "single",
+        regexp: true,
+        undef: true,
+        unused: false,
+        strict: true,
+        trailing: true,
+        smarttabs: true,
         curly: true,
         eqeqeq: true,
         eqnull: true,
         browser: true,
         globals: {
-          jQuery: true
-        },
-        '-W030': true
+          jQuery: true,
+          app: true
+        }
       },
       files: {
-        src: ['js/src/global.js']
+        src: ['js/src/modules']
       }
     }
   });
-
-  // These plugins provide necessary tasks.
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-qunit');
-  grunt.loadNpmTasks('grunt-remove-logging');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'concat', 'removelogging', 'uglify']);

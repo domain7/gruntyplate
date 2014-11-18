@@ -1,18 +1,19 @@
 {
-  "name": "wordyplate",
+  "name": "gruntyplate",
   "version": "0.1.0",
   "author": {
     "name": "Domain7",
     "email": "hello@domain7.com",
     "url": "http://www.domain7.com",
-    "client": "Wordyplate"
+    "client": "Gruntyplate"
   },
-  "description": "Domain7 Wordpress Boilerplate",
+  "description": "Domain7 Boilerplate",
   "engines": {
     "node": ">= 0.10.0"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
+    "load-grunt-tasks": "^0.4.0",
     "grunt-contrib-jshint": "~0.7.2",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-contrib-qunit": "~0.3.0",
