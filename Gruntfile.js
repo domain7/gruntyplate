@@ -25,17 +25,17 @@ module.exports = function(grunt) {
           'js/src/app.js',
           'js/src/modules/{,*/}*.js'
           ],
-        dest: 'js/dist/<%= pkg.name %>.js'
-      }
-    },
-    removelogging: {
-      dist: {
-        src: '<%= concat.dist.dest %>'
+        dest: 'js/build/<%= pkg.name %>.js'
       }
     },
     uglify: {
       options: {
-        banner: '<%= banner %>'
+        banner: '<%= banner %>',
+        sourceMap: true,
+        compress: {
+          drop_console: false,
+          drop_debugger: false
+        }
       },
       dist: {
         src: '<%= concat.dist.dest %>',
@@ -48,6 +48,7 @@ module.exports = function(grunt) {
     },
     jshint: {
       options: {
+        force: true,
         '-W030': true,
         node: true,
         esnext: true,
@@ -81,8 +82,9 @@ module.exports = function(grunt) {
   });
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'concat', 'removelogging', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
   grunt.registerTask('develop', ['jshint', 'concat']);
   grunt.registerTask('lint', ['jshint']);
 
 };
+

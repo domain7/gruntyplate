@@ -1,13 +1,13 @@
 app.example = (function($){
-	'use strict';
+  'use strict';
 
-	function init(){
-		$('div').addClass('loaded');
-	}
+  function init(){
+    $('div').addClass('loaded');
+  }
 
   /* Document ready
   /* + + + + + + + + + + + + + + + + + + + + + + + + + + + */
 
-	$(docuent).on('ready', init);
+  $(document).on('ready', init);
 
 })(jQuery);
