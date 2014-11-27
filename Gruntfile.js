@@ -1,4 +1,4 @@
-/*global module:false*/
+'use strict';
 module.exports = function(grunt) {
 
   // Load grunt tasks automatically
@@ -48,35 +48,15 @@ module.exports = function(grunt) {
     },
     jshint: {
       options: {
-        force: true,
-        '-W030': true,
-        node: true,
-        esnext: true,
-        bitwise: true,
-        camelcase: true,
-        immed: true,
-        indent: 2,
-        latedef: true,
-        newcap: true,
-        noarg: true,
-        quotmark: "single",
-        regexp: true,
-        undef: true,
-        unused: false,
-        strict: true,
-        trailing: true,
-        smarttabs: true,
-        curly: true,
-        eqeqeq: true,
-        eqnull: true,
-        browser: true,
-        globals: {
-          jQuery: true,
-          app: true
-        }
+        jshintrc: '.jshintrc',
+        reporter: require('jshint-stylish'),
+        force: true
       },
-      files: {
-        src: ['js/src/modules']
+      all: {
+        src: [
+          'Gruntfile.js',
+          'js/src/modules'
+        ]
       }
     }
   });
