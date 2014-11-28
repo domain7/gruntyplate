@@ -21,10 +21,10 @@ module.exports = function(grunt) {
       },
       dist: {
         src: [
-          'js/src/vendor/modernizr.js',
+          'js/src/vendor/modernizr-custom.js',
           'js/src/app.js',
           'js/src/modules/{,*/}*.js'
-          ],
+        ],
         dest: 'js/build/<%= pkg.name %>.js'
       }
     },
@@ -57,6 +57,33 @@ module.exports = function(grunt) {
           'Gruntfile.js',
           'js/src/modules'
         ]
+      }
+    },
+    modernizr: {
+      dist: {
+        // [REQUIRED] Path to the build you're using for development.
+        devFile: 'remote',
+        outputFile: 'js/src/vendor/modernizr-custom.js',
+        extra: {
+          shiv: true,
+          printshiv: false,
+          load: true,
+          mq: false,
+          cssclasses: true
+        },
+        extensibility: {},
+        //Add any test not in your JS/CSS here:
+        tests: [],
+        files: {
+          src: [
+            'stylesheets/scss/{,*/}*.{scss}',
+            'js/src/{,*/}*.js',
+            '!js/src/vendor/{,*/}*.js'
+          ]
+        },
+        matchCommunityTests: true,
+        // Have custom Modernizr tests? Add paths to their location here.
+        customTests: []
       }
     }
   });
