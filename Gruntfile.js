@@ -42,10 +42,6 @@ module.exports = function(grunt) {
         dest: 'js/build/<%= pkg.name %>.min.js'
       }
     },
-    watch: {
-      files: ['js/src/{,*/}*.js'],
-      tasks: ['default']
-    },
     jshint: {
       options: {
         jshintrc: '.jshintrc',
@@ -85,13 +81,46 @@ module.exports = function(grunt) {
         // Have custom Modernizr tests? Add paths to their location here.
         customTests: []
       }
+    },
+
+    compass: {
+      dist: {
+        options: {
+          config: 'config.rb',
+        }
+      }
+    },
+
+    //Combine Media Queries
+    cmq: {
+      options: {
+        log: false
+      },
+      dist: {
+        files: {
+          'stylesheets/css/': [
+            'stylesheets/css/{,*/}*.css'
+          ]
+        }
+      }
+    },
+
+    watch: {
+      js: {
+        files: ['js/src/{,*/}*.js'],
+        tasks: ['js']
+      },
+      compass: {
+        files: ['stylesheets/scss/{,*/}*.{scss,sass}'],
+        tasks: ['css']
+      }
     }
   });
 
-  // Default task.
-  grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
-  grunt.registerTask('develop', ['jshint', 'concat']);
-  grunt.registerTask('lint', ['jshint']);
+  //Tasks
+  grunt.registerTask('default', ['js', 'css']);
+  grunt.registerTask('js', ['jshint', 'concat', 'uglify']);
+  grunt.registerTask('css', ['compass', 'cmq']);
 
 };
 
