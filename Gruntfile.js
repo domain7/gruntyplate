@@ -72,7 +72,7 @@ module.exports = function(grunt) {
         tests: [],
         files: {
           src: [
-            'stylesheets/scss/{,*/}*.{scss}',
+            'stylesheets/scss/{,*/}*.scss',
             'js/src/{,*/}*.js',
             '!js/src/vendor/{,*/}*.js'
           ]
