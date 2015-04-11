@@ -67,7 +67,17 @@ module.exports = function(grunt) {
           mq: false,
           cssclasses: true
         },
-        extensibility: {},
+        extensibility: {
+          addtest : false,
+          prefixed : false,
+          teststyles : false,
+          testprops : false,
+          testallprops : false,
+          hasevents : false,
+          prefixes : false,
+          domprefixes : false,
+          cssclassprefix: ''
+        },
         //Add any test not in your JS/CSS here:
         tests: [],
         files: {
