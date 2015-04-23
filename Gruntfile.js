@@ -101,16 +101,13 @@ module.exports = function(grunt) {
       }
     },
 
-    //Combine Media Queries
-    cmq: {
+    combine_mq: {
       options: {
-        log: false
+        beautify: false
       },
       dist: {
         files: {
-          'stylesheets/css/': [
-            'stylesheets/css/{,*/}*.css'
-          ]
+          'stylesheets/css/screen.scss': 'stylesheets/css/screen.css'
         }
       }
     },
@@ -130,7 +127,7 @@ module.exports = function(grunt) {
   //Tasks
   grunt.registerTask('default', ['js', 'css']);
   grunt.registerTask('js', ['jshint', 'concat', 'uglify']);
-  grunt.registerTask('css', ['compass', 'cmq']);
+  grunt.registerTask('css', ['compass', 'combine_mq']);
 
 };
 
