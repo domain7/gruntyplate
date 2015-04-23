@@ -13,33 +13,27 @@ module.exports = function(grunt) {
       '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
       '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.client %>;' +
       '*/\n',
-    // Task configuration.
-    concat: {
-      options: {
-        banner: '<%= banner %>',
-        stripBanners: true
-      },
-      dist: {
-        src: [
-          'js/src/vendor/modernizr-custom.js',
-          'js/src/app.js',
-          'js/src/modules/{,*/}*.js'
-        ],
-        dest: 'js/dist/<%= pkg.name %>.js'
-      }
-    },
     uglify: {
       options: {
         banner: '<%= banner %>',
         sourceMap: true,
+        beautify: false,
+        mangle: true,
         compress: {
           drop_console: false,
           drop_debugger: false
         }
       },
-      dist: {
-        src: '<%= concat.dist.dest %>',
-        dest: 'js/dist/<%= pkg.name %>.min.js'
+      all: {
+        files: {
+          'js/dist/application-head.js': [
+            'js/src/vendor/modernizr-custom.js'
+          ],
+          'js/dist/application.js': [
+            'js/src/app.js'
+            // 'js/src/modules/header.js'
+          ]
+        }
       }
     },
     jshint: {
@@ -126,7 +120,7 @@ module.exports = function(grunt) {
 
   //Tasks
   grunt.registerTask('default', ['js', 'css']);
-  grunt.registerTask('js', ['jshint', 'concat', 'uglify']);
+  grunt.registerTask('js', ['jshint', 'uglify']);
   grunt.registerTask('css', ['compass', 'combine_mq']);
 
 };
