@@ -22,6 +22,8 @@
   "-W030": true,
   "globals": {
     "jQuery": true,
-    "app": true
+    "app": true,
+    "Fresco": true,
+    "Modernizr": true
   }
 }
