@@ -95,17 +95,6 @@ module.exports = function(grunt) {
       }
     },
 
-    combine_mq: {
-      options: {
-        beautify: false
-      },
-      dist: {
-        files: {
-          'stylesheets/css/screen.scss': 'stylesheets/css/screen.css'
-        }
-      }
-    },
-
     watch: {
       options: {
         livereload: true
@@ -124,7 +113,7 @@ module.exports = function(grunt) {
   //Tasks
   grunt.registerTask('default', ['js', 'css']);
   grunt.registerTask('js', ['jshint', 'uglify']);
-  grunt.registerTask('css', ['compass', 'combine_mq']);
+  grunt.registerTask('css', ['compass']);
 
 };
 
