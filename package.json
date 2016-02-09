@@ -18,6 +18,7 @@
     "grunt-contrib-uglify": "^0.9.1",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-modernizr": "^0.6.0",
+    "grunt-svgstore": "^0.5.0",
     "jshint-stylish": "^1.0.2",
     "load-grunt-tasks": "^3.1.0"
   }

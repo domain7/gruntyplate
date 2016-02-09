@@ -27,7 +27,8 @@ module.exports = function(grunt) {
       all: {
         files: {
           'js/dist/application-head.js': [
-            'js/src/vendor/modernizr-custom.js'
+            'js/src/vendor/modernizr-custom.js',
+            'js/src/vendor/svgxuse.min.js'
           ],
           'js/dist/application.js': [
             'js/src/app.js'
@@ -95,6 +96,21 @@ module.exports = function(grunt) {
       }
     },
 
+    svgstore: {
+      options: {
+        prefix: 'icon-',
+        svg: {
+          viewBox: '0 0 30 30',
+          xmlns: 'http://www.w3.org/2000/svg'
+        }
+      },
+      default: {
+        files: {
+          'images/svg-sprite.svg': ['images/svg-icons/*.svg']
+        }
+      }
+    },
+
     watch: {
       options: {
         livereload: true
@@ -102,6 +118,10 @@ module.exports = function(grunt) {
       js: {
         files: ['js/src/{,*/}*.js'],
         tasks: ['js']
+      },
+      svg: {
+        files: ['images/svg-icons/{,*/}*.svg'],
+        tasks: ['svgstore']
       },
       css: {
         files: ['stylesheets/scss/{,*/}*.{scss,sass}'],
@@ -111,7 +131,7 @@ module.exports = function(grunt) {
   });
 
   //Tasks
-  grunt.registerTask('default', ['js', 'css']);
+  grunt.registerTask('default', ['js', 'css', 'svgstore']);
   grunt.registerTask('js', ['jshint', 'uglify']);
   grunt.registerTask('css', ['compass']);
 
