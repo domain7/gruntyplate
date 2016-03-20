@@ -99,7 +99,7 @@ module.exports = function(grunt) {
 
     sass: {
       options: {
-        sourceMap: false,
+        sourceMap: true,
         outputStyle: 'expanded' //nested, expanded, compact, compressed
       },
       dist: {
@@ -115,6 +115,7 @@ module.exports = function(grunt) {
 
     postcss: {
       options: {
+        map: true,
         processors: [
           require('autoprefixer')({browsers: 'last 4 versions'}), // add vendor prefixes
           // require('cssnano')() // minify the result. disabled for dev b/c it's slow
