@@ -88,6 +88,7 @@ module.exports = function(grunt) {
       }
     },
 
+    //Use this for old school compass projects
     compass: {
       dist: {
         options: {
@@ -95,6 +96,36 @@ module.exports = function(grunt) {
         }
       }
     },
+
+    sass: {
+      options: {
+        sourceMap: true,
+        outputStyle: 'expanded' //nested, expanded, compact, compressed
+      },
+      dist: {
+        files: [{
+          expand: true,
+          flatten: true,
+          src: 'stylesheets/scss/*.scss',
+          dest: 'stylesheets/css/',
+          ext: '.css'
+        }]
+      }
+    },
+
+    postcss: {
+      options: {
+        map: true,
+        processors: [
+          require('autoprefixer')({browsers: 'last 4 versions'}), // add vendor prefixes
+          // require('cssnano')() // minify the result. disabled for dev b/c it's slow
+        ]
+      },
+      dist: {
+        src: 'stylesheets/css/*.css'
+      }
+    },
+
 
     svgstore: {
       options: {
@@ -133,7 +164,7 @@ module.exports = function(grunt) {
   //Tasks
   grunt.registerTask('default', ['js', 'css', 'svgstore']);
   grunt.registerTask('js', ['jshint', 'uglify']);
-  grunt.registerTask('css', ['compass']);
+  grunt.registerTask('css', ['sass', 'postcss']);
 
 };
 
