@@ -147,12 +147,22 @@ module.exports = function(grunt) {
         cmd: function(){
           var commands = [
             'git clone -b feature/file-structure git@github.com:domain7/sassyplate.git',
-            'mv sassyplate/readme.md src/styles/readme.md',
-            'mv sassyplate/* src',
+            'grunt copy:sassyplate',
             'rm -rf sassyplate'
           ];
           return commands.join(' && ');
         }
+      }
+    },
+
+    copy: {
+      sassyplate: {
+        files: [{
+          expand: true,
+          cwd: 'sassyplate',
+          src: ['**'],
+          dest: 'src/'
+        }]
       }
     },
 
