@@ -26,13 +26,13 @@ module.exports = function(grunt) {
       },
       all: {
         files: {
-          'js/dist/application-head.js': [
-            'js/src/vendor/modernizr-custom.js',
-            'js/src/vendor/svgxuse.min.js'
+          'dist/js/application-head.js': [
+            'src/js/vendor/modernizr-custom.js',
+            'src/js/vendor/svgxuse.min.js'
           ],
-          'js/dist/application.js': [
-            'js/src/app.js'
-            // 'js/src/modules/header.js'
+          'dist/js/application.js': [
+            'src/js/app.js'
+            // 'src/js/modules/header.js'
           ]
         }
       }
@@ -46,7 +46,7 @@ module.exports = function(grunt) {
       all: {
         src: [
           'Gruntfile.js',
-          'js/src/modules'
+          'src/js/modules'
         ]
       }
     },
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
       dist: {
         // [REQUIRED] Path to the build you're using for development.
         devFile: 'remote',
-        outputFile: 'js/src/vendor/modernizr-custom.js',
+        outputFile: 'src/js/vendor/modernizr-custom.js',
         extra: {
           shiv: true,
           printshiv: false,
@@ -77,9 +77,9 @@ module.exports = function(grunt) {
         tests: [],
         files: {
           src: [
-            'stylesheets/scss/{,*/}*.scss',
-            'js/src/{,*/}*.js',
-            '!js/src/vendor/{,*/}*.js'
+            'src/styles/{,*/}*.scss',
+            'src/js/{,*/}*.js',
+            '!src/js/vendor/{,*/}*.js'
           ]
         },
         matchCommunityTests: true,
@@ -106,8 +106,8 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           flatten: true,
-          src: 'stylesheets/scss/*.scss',
-          dest: 'stylesheets/css/',
+          src: 'src/styles/*.scss',
+          dest: 'dist/styles/',
           ext: '.css'
         }]
       }
@@ -142,12 +142,26 @@ module.exports = function(grunt) {
       }
     },
 
+    exec: {
+      sassyplate: {
+        cmd: function(){
+          var commands = [
+            'git clone -b feature/file-structure git@github.com:domain7/sassyplate.git',
+            'mv sassyplate/readme.md src/styles/readme.md',
+            'mv sassyplate/* src',
+            'rm -rf sassyplate'
+          ];
+          return commands.join(' && ');
+        }
+      }
+    },
+
     watch: {
       options: {
         livereload: true
       },
       js: {
-        files: ['js/src/{,*/}*.js'],
+        files: ['src/js/{,*/}*.js'],
         tasks: ['js']
       },
       svg: {
@@ -155,7 +169,7 @@ module.exports = function(grunt) {
         tasks: ['svgstore']
       },
       css: {
-        files: ['stylesheets/scss/{,*/}*.{scss,sass}'],
+        files: ['src/styles/{,*/}*.{scss,sass}'],
         tasks: ['css']
       }
     }
@@ -165,6 +179,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['js', 'css', 'svgstore']);
   grunt.registerTask('js', ['jshint', 'uglify']);
   grunt.registerTask('css', ['sass', 'postcss']);
+  grunt.registerTask('sassyplate', ['exec:sassyplate']);
 
 };
 
