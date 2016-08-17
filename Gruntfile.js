@@ -122,7 +122,7 @@ module.exports = function(grunt) {
         ]
       },
       dist: {
-        src: 'stylesheets/css/*.css'
+        src: 'dist/styles/*.css'
       }
     },
 
