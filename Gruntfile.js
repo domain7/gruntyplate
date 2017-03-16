@@ -52,9 +52,8 @@ module.exports = function(grunt) {
     },
     modernizr: {
       dist: {
-        // [REQUIRED] Path to the build you're using for development.
-        devFile: 'remote',
-        outputFile: 'src/js/vendor/modernizr-custom.js',
+        devFile: false,
+        dest: 'src/js/vendor/modernizr-custom.js',
         extra: {
           shiv: true,
           printshiv: false,
