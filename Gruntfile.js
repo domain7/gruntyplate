@@ -73,6 +73,7 @@ module.exports = function(grunt) {
           cssclassprefix: ''
         },
         //Add any test not in your JS/CSS here:
+        options: ['setClasses'],
         tests: [],
         files: {
           src: [
