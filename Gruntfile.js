@@ -171,15 +171,15 @@ module.exports = function(grunt) {
         livereload: true
       },
       js: {
-        files: ['src/js/{,*/}*.js'],
+        files: ['src/js/**/*.js'],
         tasks: ['js']
       },
       svg: {
-        files: ['images/svg-icons/{,*/}*.svg'],
+        files: ['images/svg-icons/**/*.svg'],
         tasks: ['svgstore']
       },
       css: {
-        files: ['src/styles/{,*/}*.{scss,sass}'],
+        files: ['src/styles/**/*.{scss,sass}'],
         tasks: ['css']
       }
     }
@@ -192,4 +192,3 @@ module.exports = function(grunt) {
   grunt.registerTask('sassyplate', ['exec:sassyplate']);
 
 };
-
