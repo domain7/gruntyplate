@@ -1,12 +1,9 @@
-app.example = (function($){
+app.example = (($) => {
   'use strict';
 
-  function init(){
-    $('div').addClass('loaded');
-  }
-
-  /* Document ready
-  /* + + + + + + + + + + + + + + + + + + + + + + + + + + + */
+  const init = () => {
+    console.log('ready');
+  }; 
 
   $(document).on('ready', init);
 
