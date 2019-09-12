@@ -4,6 +4,8 @@ module.exports = function(grunt) {
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
 
+  const sass = require('node-sass');
+
   // Project configuration.
   grunt.initConfig({
     // Metadata.
@@ -16,7 +18,7 @@ module.exports = function(grunt) {
     uglify: {
       options: {
         banner: '<%= banner %>',
-        sourceMap: true,
+        sourceMap: false,
         beautify: false,
         mangle: true,
         compress: {
@@ -28,11 +30,11 @@ module.exports = function(grunt) {
         files: {
           'dist/js/application-head.js': [
             'src/js/vendor/modernizr-custom.js',
-            'src/js/vendor/svgxuse.min.js'
+            'src/js/vendor/svgxuse.min.js',
           ],
           'dist/js/application.js': [
-            'src/js/app.js'
-            // 'src/js/modules/header.js'
+            '.tmp/babel/app.js',
+            '.tmp/babel/modules/*.js'
           ]
         }
       }
@@ -45,7 +47,6 @@ module.exports = function(grunt) {
       },
       all: {
         src: [
-          'Gruntfile.js',
           'src/js/modules'
         ]
       }
@@ -99,8 +100,9 @@ module.exports = function(grunt) {
 
     sass: {
       options: {
-        sourceMap: true,
-        outputStyle: 'expanded' //nested, expanded, compact, compressed
+        implementation: sass,
+        sourceMap: false,
+        outputStyle: 'compressed' //nested, expanded, compact, compressed
       },
       dist: {
         files: [{
@@ -117,7 +119,7 @@ module.exports = function(grunt) {
       options: {
         map: true,
         processors: [
-          require('autoprefixer')({browsers: 'last 4 versions'}), // add vendor prefixes
+          require('autoprefixer')({'overrideBrowserslist': 'last 2 versions'}), // add vendor prefixes
           // require('cssnano')() // minify the result. disabled for dev b/c it's slow
         ]
       },
@@ -152,7 +154,12 @@ module.exports = function(grunt) {
           ];
           return commands.join(' && ');
         }
-      }
+      },
+      cleanTmp: {
+        cmd: function () {
+          return 'rm -r .tmp/*';
+        }
+      },
     },
 
     copy: {
@@ -162,6 +169,34 @@ module.exports = function(grunt) {
           cwd: 'sassyplate',
           src: ['**'],
           dest: 'src/'
+        }]
+      }
+    },
+
+    babel: {
+      options: {
+        sourceMap: false,
+        presets: [
+          ['env', {
+            modules: false,
+            targets: {
+              browsers: ['last 2 versions'],
+            },
+            uglify: true,
+          }]
+        ]
+      },
+      dist: {
+        files: [{
+          expand: true,
+          flatten: false,
+          cwd: 'src/js/',
+          src: [
+            'modules/*.js',
+            'app.js',
+          ],
+          dest: '.tmp/babel/',
+          ext: '.js'
         }]
       }
     },
@@ -187,7 +222,7 @@ module.exports = function(grunt) {
 
   //Tasks
   grunt.registerTask('default', ['js', 'css', 'svgstore']);
-  grunt.registerTask('js', ['jshint', 'uglify']);
+  grunt.registerTask('js', ['jshint', 'babel', 'uglify', 'exec:cleanTmp']);
   grunt.registerTask('css', ['sass', 'postcss']);
   grunt.registerTask('sassyplate', ['exec:sassyplate']);
 
